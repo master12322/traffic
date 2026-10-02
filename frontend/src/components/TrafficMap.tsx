@@ -667,7 +667,7 @@ export function TrafficMap({
     <div className="relative h-full w-full overflow-hidden rounded-xl border border-border">
       <div ref={containerRef} className="h-full w-full" />
       {drawing && (
-        <div className="glass absolute bottom-4 left-1/2 flex -translate-x-1/2 items-center gap-2 rounded-full p-1.5 shadow-xl">
+        <div className="glass absolute bottom-safe left-1/2 flex -translate-x-1/2 items-center gap-2 rounded-full p-1.5 shadow-xl">
           <span className="flex items-center gap-1.5 px-2 text-xs text-muted-foreground">
             <MousePointerClick className="h-3.5 w-3.5 text-primary" />
             {draftCount < 3

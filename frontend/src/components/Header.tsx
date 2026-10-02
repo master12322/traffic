@@ -16,9 +16,13 @@ export function Header({ connected, lastTick, pushEnabled, onTogglePush, pushBus
   const age = lastTick ? Math.max(0, Math.round((Date.now() - lastTick) / 1000)) : null;
 
   return (
-    <header className="glass sticky top-0 z-20 flex h-14 items-center justify-between px-3 sm:h-16 sm:px-5">
-      <div className="flex items-center gap-2 sm:gap-3">
-        <div className="relative grid h-9 w-9 place-items-center rounded-xl bg-primary/15 sm:h-10 sm:w-10">
+    // `shrink-0` keeps the bar at full height and stops the logo and status
+    // controls being squeezed on narrow phones: with both sides shrinking, the
+    // fixed-width logo box lost width and the badge text clipped. Now only the
+    // title/subtitle text is allowed to truncate.
+    <header className="glass sticky top-0 z-20 flex h-14 shrink-0 items-center justify-between gap-2 px-3 sm:h-16 sm:px-5">
+      <div className="flex min-w-0 items-center gap-2 sm:gap-3">
+        <div className="relative grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-primary/15 sm:h-10 sm:w-10">
           <Logo className="h-6 w-6 text-primary sm:h-7 sm:w-7" />
           <span className="absolute inset-0 rounded-xl ring-1 ring-primary/40" />
         </div>
@@ -30,12 +34,13 @@ export function Header({ connected, lastTick, pushEnabled, onTogglePush, pushBus
             </span>
           </h1>
           <p className="truncate text-[11px] text-muted-foreground sm:text-xs">
-            Phase 3 · live traffic {age !== null && `· updated ${age}s ago`}
+            <span className="hidden sm:inline">Phase 3 · </span>live traffic
+            {age !== null && ` · updated ${age}s ago`}
           </p>
         </div>
       </div>
 
-      <div className="flex items-center gap-2">
+      <div className="flex shrink-0 items-center gap-2">
         {connected ? (
           <Badge variant="success">
             <span className="relative flex h-2 w-2">

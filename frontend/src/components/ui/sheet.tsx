@@ -27,12 +27,12 @@ SheetOverlay.displayName = DialogPrimitive.Overlay.displayName;
 type Side = "top" | "bottom" | "left" | "right";
 
 const sideClasses: Record<Side, string> = {
-  left: "inset-y-0 left-0 h-full w-80 max-w-[85vw] border-r data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left",
+  left: "inset-y-0 left-0 h-screen-safe w-80 max-w-[85vw] border-r data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left",
   right:
-    "inset-y-0 right-0 h-full w-80 max-w-[85vw] border-l data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right",
+    "inset-y-0 right-0 h-screen-safe w-80 max-w-[85vw] border-l data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right",
   top: "inset-x-0 top-0 w-full border-b data-[state=closed]:slide-out-to-top data-[state=open]:slide-in-from-top",
   bottom:
-    "inset-x-0 bottom-0 max-h-[85vh] w-full rounded-t-2xl border-t data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom",
+    "inset-x-0 bottom-0 max-h-drawer-safe w-full rounded-t-2xl border-t data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom",
 };
 
 interface SheetContentProps
@@ -86,10 +86,14 @@ const SheetBody = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>
 );
 SheetBody.displayName = "SheetBody";
 
-// Fixed drawer footer (actions pinned to the bottom).
+// Fixed drawer footer (actions pinned to the bottom). `pb-safe` replaces the
+// bottom of `py-3` so the buttons clear the home indicator / gesture bar.
 const SheetFooter = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
   <div
-    className={cn("flex shrink-0 items-center gap-2 border-t border-border/60 px-4 py-3", className)}
+    className={cn(
+      "flex shrink-0 items-center gap-2 border-t border-border/60 px-4 pt-3 pb-safe",
+      className
+    )}
     {...props}
   />
 );

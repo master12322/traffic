@@ -325,7 +325,7 @@ export default function App() {
 
   return (
     <TooltipProvider delayDuration={200}>
-      <div className="app-bg flex h-screen flex-col overflow-hidden">
+      <div className="app-bg flex h-screen-safe flex-col overflow-hidden pt-safe">
         <Header
           connected={connected}
           lastTick={lastTick}
@@ -355,7 +355,7 @@ export default function App() {
 
             {/* Mobile open-panel buttons (hidden on desktop & while drawing) */}
             {!drawing && (
-              <div className="pointer-events-none absolute inset-x-0 bottom-3 flex justify-between px-3 lg:hidden">
+              <div className="pointer-events-none absolute inset-x-0 bottom-safe flex justify-between px-3 lg:hidden">
                 <button
                   onClick={() => setMobilePanel("controls")}
                   className="glass pointer-events-auto inline-flex items-center gap-1.5 rounded-full px-3.5 py-2 text-xs font-medium shadow-xl active:scale-95"
@@ -395,7 +395,7 @@ export default function App() {
           </SheetContent>
         </Sheet>
         <Sheet open={mobilePanel === "status"} onOpenChange={(o) => !o && setMobilePanel(null)}>
-          <SheetContent side="bottom" className="h-[85vh]">
+          <SheetContent side="bottom" className="h-drawer-safe">
             <div className="mx-auto mt-2 h-1.5 w-10 shrink-0 rounded-full bg-border" />
             <SheetHeader>
               <SheetTitle className="flex items-center gap-2 text-sm">
