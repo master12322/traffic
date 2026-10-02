@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Light theme — default. Dark palette lives under .dark below. */
+    --background: 210 40% 97%;
+    --foreground: 222 47% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    --primary: 173 75% 37%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 210 40% 93%;
+    --secondary-foreground: 222 47% 15%;
+    --muted: 210 40% 94%;
+    --muted-foreground: 215 16% 40%;
+    --accent: 210 40% 90%;
+    --accent-foreground: 222 47% 11%;
+    --border: 214 32% 85%;
+    --input: 214 32% 85%;
+    --ring: 173 75% 37%;
+    --radius: 0.85rem;
+  }
+
+  .dark {
+    --background: 222 47% 5%;
+    --foreground: 210 40% 98%;
+    --card: 222 44% 8%;
+    --card-foreground: 210 40% 98%;
+    --primary: 173 80% 46%;
+    --primary-foreground: 222 47% 6%;
+    --secondary: 217 33% 14%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217 33% 12%;
+    --muted-foreground: 215 20% 60%;
+    --accent: 217 33% 16%;
+    --accent-foreground: 210 40% 98%;
+    --border: 217 33% 16%;
+    --input: 217 33% 16%;
+    --ring: 173 80% 46%;
+  }
+
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "cv11" 1, "ss01" 1, "calt" 1, "rlig" 1;
+    font-optical-sizing: auto;
+    font-family: "Inter Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+}
+
+/* App-wide ambient background: subtle radial glows + grid */
+.app-bg {
+  background:
+    radial-gradient(60rem 60rem at 85% -10%, hsl(var(--primary) / 0.10), transparent 60%),
+    radial-gradient(50rem 50rem at -10% 110%, hsl(260 80% 60% / 0.10), transparent 60%),
+    hsl(var(--background));
+}
+.grid-overlay {
+  background-image:
+    linear-gradient(hsl(var(--border) / 0.5) 1px, transparent 1px),
+    linear-gradient(90deg, hsl(var(--border) / 0.5) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(ellipse 100% 80% at 50% 0%, black 40%, transparent 100%);
+}
+
+/* Glass panels — theme-aware (translucent card tint) */
+.glass {
+  background: linear-gradient(180deg, hsl(var(--card) / 0.82), hsl(var(--card) / 0.62));
+  backdrop-filter: blur(14px);
+  border: 1px solid hsl(var(--border) / 0.8);
+}
+
+/* Thin custom scrollbar */
+.scroll-slim::-webkit-scrollbar { width: 8px; height: 8px; }
+.scroll-slim::-webkit-scrollbar-thumb {
+  background: hsl(var(--border)); border-radius: 8px;
+}
+.scroll-slim::-webkit-scrollbar-track { background: transparent; }
+
+/* Mapbox GL imports its own css in component; keep draw controls dark */
+.mapboxgl-ctrl-group { background: hsl(var(--card)) !important; border: 1px solid hsl(var(--border)) !important; }
+
+/* Dark glass popup for clicked roads */
+.road-popup .mapboxgl-popup-content {
+  background: hsl(var(--card));
+  color: hsl(var(--foreground));
+  border: 1px solid hsl(var(--border));
+  border-radius: 10px;
+  padding: 10px 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  max-width: 240px;
+}
+.road-popup .mapboxgl-popup-tip {
+  border-top-color: hsl(var(--card)) !important;
+  border-bottom-color: hsl(var(--card)) !important;
+}
+.road-popup .mapboxgl-popup-close-button { color: hsl(var(--muted-foreground)); font-size: 16px; }
